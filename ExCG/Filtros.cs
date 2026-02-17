@@ -9,6 +9,7 @@ namespace ExCG
 {
     internal class Filtros
     {
+
         public static void luminancia(Bitmap imageBitmapSrc, Bitmap imageBitmapDest)
         {
             int width = imageBitmapSrc.Width;
