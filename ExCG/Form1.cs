@@ -8,6 +8,8 @@ namespace ExCG
     {
         private Image image;
         private Bitmap imgBitmap;
+        private Bitmap imagemOriginal;  // Guarda a imagem original
+        private int nivelBrilho = 0;    // Contador de brilho
 
         public FrmPrincipal()
         {
@@ -23,8 +25,10 @@ namespace ExCG
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 image = Image.FromFile(openFileDialog.FileName);
+                imagemOriginal = new Bitmap(image); // SALVA A ORIGINAL
                 pictureBox1.Image = image;
                 pictureBox1.SizeMode = PictureBoxSizeMode.Normal;
+                nivelBrilho = 0; // Reseta o contador
             }
         }
 
@@ -50,7 +54,7 @@ namespace ExCG
             else
             {
                 pictureBox1.MouseMove -= exibir_valores;
-                valorPixel.Text = ""; // limpa a exibição
+                valorPixel.Text = "";
                 panelCor.Visible = false;
             }
         }
@@ -94,6 +98,111 @@ namespace ExCG
         }
 
         private void panelCor_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void aumentar_Brilho(object sender, EventArgs e)
+        {
+            if (imagemOriginal == null)
+            {
+                MessageBox.Show("Carregue uma imagem primeiro!");
+                return;
+            }
+
+            nivelBrilho += 20; // Aumenta o contador
+            aplicarBrilho(); // Aplica o brilho acumulado
+        }
+
+        private void diminuir_Brilho(object sender, EventArgs e)
+        {
+            if (imagemOriginal == null)
+            {
+                MessageBox.Show("Carregue uma imagem primeiro!");
+                return;
+            }
+
+            nivelBrilho -= 20; // Diminui o contador
+            aplicarBrilho(); // Aplica o brilho acumulado
+        }
+
+        private void aplicarBrilho()
+        {
+            // Sempre começa da imagem ORIGINAL
+            Bitmap imgTemp = new Bitmap(imagemOriginal);
+            Bitmap imgResultado = imgTemp;
+
+            // Aplica aumentar ou diminuir múltiplas vezes
+            int vezes = Math.Abs(nivelBrilho) / 20;
+
+            for (int i = 0; i < vezes; i++)
+            {
+                Bitmap imgDest = new Bitmap(imgResultado.Width, imgResultado.Height);
+
+                if (nivelBrilho > 0)
+                {
+                    Filtros.aumentar(imgResultado, imgDest); // Usa a função aumentar
+                }
+                else
+                {
+                    Filtros.diminuir(imgResultado, imgDest); // Usa a função diminuir
+                }
+
+                if (imgResultado != imgTemp)
+                {
+                    imgResultado.Dispose();
+                }
+                imgResultado = imgDest;
+            }
+
+            // Se o brilho é zero, usa a original
+            if (nivelBrilho == 0)
+            {
+                imgResultado = new Bitmap(imagemOriginal);
+            }
+
+            // Atualiza o PictureBox
+            pictureBox1.Image = imgResultado;
+
+            // Opcional: mostra o nível no título
+            this.Text = $"Editor - Brilho: {nivelBrilho}";
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (imagemOriginal == null) return;
+
+            Bitmap rImg = new Bitmap(imagemOriginal.Width, imagemOriginal.Height);
+            Bitmap gImg = new Bitmap(imagemOriginal.Width, imagemOriginal.Height);
+            Bitmap bImg = new Bitmap(imagemOriginal.Width, imagemOriginal.Height);
+
+            Filtros.canalRGB(imagemOriginal, rImg, 'R');
+            Filtros.canalRGB(imagemOriginal, gImg, 'G');
+            Filtros.canalRGB(imagemOriginal, bImg, 'B');
+
+            pictureBoxR.Image = rImg;
+            pictureBoxG.Image = gImg;
+            pictureBoxB.Image = bImg;
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            if (imagemOriginal == null) return;
+
+            Bitmap hImg = new Bitmap(imagemOriginal.Width, imagemOriginal.Height);
+            Bitmap sImg = new Bitmap(imagemOriginal.Width, imagemOriginal.Height);
+            Bitmap iImg = new Bitmap(imagemOriginal.Width, imagemOriginal.Height);
+
+            Filtros.canalHSI(imagemOriginal, hImg, 'H');
+            Filtros.canalHSI(imagemOriginal, sImg, 'S');
+            Filtros.canalHSI(imagemOriginal, iImg, 'I');
+
+            pictureBoxH.Image = hImg;
+            pictureBoxS.Image = sImg;
+            pictureBoxI.Image = iImg;
+        }
+
+        private void pictureBox3_Click(object sender, EventArgs e)
         {
 
         }
