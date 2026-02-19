@@ -54,7 +54,7 @@ namespace ExCG
             else
             {
                 pictureBox1.MouseMove -= exibir_valores;
-                valorPixel.Text = "";
+                valorPixel.Text = "R: G: B:\nC: M: Y:\nH: S: I:";
                 panelCor.Visible = false;
             }
         }
@@ -84,10 +84,17 @@ namespace ExCG
                         int g = srcPixel[1];
                         int r = srcPixel[2];
 
+                        int c = 255 - r;
+                        int m = 255 - g;
+                        int y = 255 - b;
+
+                        int h, s, i;
+
+
                         panelCor.Visible = true;
                         panelCor.BackColor = Color.FromArgb(r, g, b);
                         panelCor.Location = new Point(e.X + 15, e.Y + 15);
-                        valorPixel.Text = $"R:{r} G:{g} B:{b}";
+                        valorPixel.Text = $"R:{r} G:{g} B:{b}\nC:{c} M:{m} Y:{y}";
                     }
                     finally
                     {
