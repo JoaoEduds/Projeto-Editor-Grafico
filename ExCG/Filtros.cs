@@ -147,7 +147,6 @@ namespace ExCG
             imageBitmapSrc.UnlockBits(bitmapDataSrc);
             imageBitmapDest.UnlockBits(bitmapDataDst);
         }
-        
         public static void canalRGB(Bitmap src, Bitmap dst, char canal)
         {
             int width = src.Width;

@@ -46,7 +46,6 @@
             pictureBoxH = new PictureBox();
             pictureBoxS = new PictureBox();
             pictureBoxI = new PictureBox();
-            label1 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxR).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxG).BeginInit();
@@ -58,18 +57,20 @@
             // 
             // pictureBox1
             // 
-            pictureBox1.Location = new Point(12, 12);
+            pictureBox1.Location = new Point(14, 16);
+            pictureBox1.Margin = new Padding(3, 4, 3, 4);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(500, 500);
+            pictureBox1.Size = new Size(571, 667);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             // 
             // btAbrirImg
             // 
-            btAbrirImg.Location = new Point(531, 12);
+            btAbrirImg.Location = new Point(607, 16);
+            btAbrirImg.Margin = new Padding(3, 4, 3, 4);
             btAbrirImg.Name = "btAbrirImg";
-            btAbrirImg.Size = new Size(104, 23);
+            btAbrirImg.Size = new Size(119, 31);
             btAbrirImg.TabIndex = 1;
             btAbrirImg.Text = "Abrir Imagem";
             btAbrirImg.UseVisualStyleBackColor = true;
@@ -77,9 +78,10 @@
             // 
             // button1
             // 
-            button1.Location = new Point(531, 41);
+            button1.Location = new Point(607, 55);
+            button1.Margin = new Padding(3, 4, 3, 4);
             button1.Name = "button1";
-            button1.Size = new Size(98, 23);
+            button1.Size = new Size(112, 31);
             button1.TabIndex = 2;
             button1.Text = "Luminância";
             button1.UseVisualStyleBackColor = true;
@@ -91,9 +93,10 @@
             // 
             // btLimpar
             // 
-            btLimpar.Location = new Point(641, 12);
+            btLimpar.Location = new Point(742, 16);
+            btLimpar.Margin = new Padding(3, 4, 3, 4);
             btLimpar.Name = "btLimpar";
-            btLimpar.Size = new Size(75, 23);
+            btLimpar.Size = new Size(86, 31);
             btLimpar.TabIndex = 4;
             btLimpar.Text = "Limpar Imagem";
             btLimpar.UseVisualStyleBackColor = true;
@@ -102,9 +105,10 @@
             // checkBox1
             // 
             checkBox1.AutoSize = true;
-            checkBox1.Location = new Point(637, 42);
+            checkBox1.Location = new Point(742, 60);
+            checkBox1.Margin = new Padding(3, 4, 3, 4);
             checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(87, 19);
+            checkBox1.Size = new Size(106, 24);
             checkBox1.TabIndex = 5;
             checkBox1.Text = "Conversões";
             checkBox1.UseVisualStyleBackColor = true;
@@ -113,28 +117,27 @@
             // valorPixel
             // 
             valorPixel.AutoSize = true;
-            valorPixel.Location = new Point(722, 28);
+            valorPixel.Location = new Point(607, 103);
             valorPixel.Name = "valorPixel";
-            valorPixel.Size = new Size(48, 45);
+            valorPixel.Size = new Size(0, 20);
             valorPixel.TabIndex = 6;
-            valorPixel.Text = "R: G: B: \r\nC: M: Y:\r\nH: S: I:";
             // 
             // panelCor
             // 
             panelCor.BackColor = SystemColors.Control;
-            panelCor.Location = new Point(430, 243);
+            panelCor.Location = new Point(491, 324);
+            panelCor.Margin = new Padding(3, 4, 3, 4);
             panelCor.Name = "panelCor";
-            panelCor.Size = new Size(68, 61);
+            panelCor.Size = new Size(78, 81);
             panelCor.TabIndex = 7;
             panelCor.Visible = false;
             panelCor.Paint += panelCor_Paint;
             // 
             // button2
             // 
-            button2.Location = new Point(531, 89);
-            button2.Margin = new Padding(3, 2, 3, 2);
+            button2.Location = new Point(613, 99);
             button2.Name = "button2";
-            button2.Size = new Size(82, 22);
+            button2.Size = new Size(94, 29);
             button2.TabIndex = 8;
             button2.Text = "+";
             button2.UseVisualStyleBackColor = true;
@@ -142,10 +145,9 @@
             // 
             // button3
             // 
-            button3.Location = new Point(636, 89);
-            button3.Margin = new Padding(3, 2, 3, 2);
+            button3.Location = new Point(743, 99);
             button3.Name = "button3";
-            button3.Size = new Size(82, 22);
+            button3.Size = new Size(94, 29);
             button3.TabIndex = 9;
             button3.Text = "-";
             button3.UseVisualStyleBackColor = true;
@@ -153,10 +155,9 @@
             // 
             // button4
             // 
-            button4.Location = new Point(531, 115);
-            button4.Margin = new Padding(3, 2, 3, 2);
+            button4.Location = new Point(613, 157);
             button4.Name = "button4";
-            button4.Size = new Size(82, 22);
+            button4.Size = new Size(94, 29);
             button4.TabIndex = 10;
             button4.Text = "RGB";
             button4.UseVisualStyleBackColor = true;
@@ -164,10 +165,9 @@
             // 
             // button5
             // 
-            button5.Location = new Point(637, 115);
-            button5.Margin = new Padding(3, 2, 3, 2);
+            button5.Location = new Point(734, 157);
             button5.Name = "button5";
-            button5.Size = new Size(82, 22);
+            button5.Size = new Size(94, 29);
             button5.TabIndex = 11;
             button5.Text = "HSI";
             button5.UseVisualStyleBackColor = true;
@@ -175,92 +175,76 @@
             // 
             // pictureBoxR
             // 
-            pictureBoxR.Location = new Point(589, 286);
-            pictureBoxR.Margin = new Padding(3, 2, 3, 2);
-            pictureBoxR.MaximumSize = new Size(105, 90);
-            pictureBoxR.MinimumSize = new Size(105, 90);
+            pictureBoxR.Location = new Point(673, 382);
+            pictureBoxR.MaximumSize = new Size(120, 120);
+            pictureBoxR.MinimumSize = new Size(120, 120);
             pictureBoxR.Name = "pictureBoxR";
-            pictureBoxR.Size = new Size(105, 90);
+            pictureBoxR.Size = new Size(120, 120);
             pictureBoxR.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBoxR.TabIndex = 12;
             pictureBoxR.TabStop = false;
             // 
             // pictureBoxG
             // 
-            pictureBoxG.Location = new Point(735, 286);
-            pictureBoxG.Margin = new Padding(3, 2, 3, 2);
-            pictureBoxG.MaximumSize = new Size(105, 90);
-            pictureBoxG.MinimumSize = new Size(105, 90);
+            pictureBoxG.Location = new Point(840, 382);
+            pictureBoxG.MaximumSize = new Size(120, 120);
+            pictureBoxG.MinimumSize = new Size(120, 120);
             pictureBoxG.Name = "pictureBoxG";
-            pictureBoxG.Size = new Size(105, 90);
+            pictureBoxG.Size = new Size(120, 120);
             pictureBoxG.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBoxG.TabIndex = 13;
             pictureBoxG.TabStop = false;
             // 
             // pictureBoxB
             // 
-            pictureBoxB.Location = new Point(878, 286);
-            pictureBoxB.Margin = new Padding(3, 2, 3, 2);
-            pictureBoxB.MaximumSize = new Size(105, 90);
-            pictureBoxB.MinimumSize = new Size(105, 90);
+            pictureBoxB.Location = new Point(1004, 382);
+            pictureBoxB.MaximumSize = new Size(120, 120);
+            pictureBoxB.MinimumSize = new Size(120, 120);
             pictureBoxB.Name = "pictureBoxB";
-            pictureBoxB.Size = new Size(105, 90);
+            pictureBoxB.Size = new Size(120, 120);
             pictureBoxB.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBoxB.TabIndex = 14;
             pictureBoxB.TabStop = false;
             // 
             // pictureBoxH
             // 
-            pictureBoxH.Location = new Point(589, 398);
-            pictureBoxH.Margin = new Padding(3, 2, 3, 2);
-            pictureBoxH.MaximumSize = new Size(105, 90);
-            pictureBoxH.MinimumSize = new Size(105, 90);
+            pictureBoxH.Location = new Point(673, 530);
+            pictureBoxH.MaximumSize = new Size(120, 120);
+            pictureBoxH.MinimumSize = new Size(120, 120);
             pictureBoxH.Name = "pictureBoxH";
-            pictureBoxH.Size = new Size(105, 90);
+            pictureBoxH.Size = new Size(120, 120);
             pictureBoxH.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBoxH.TabIndex = 15;
             pictureBoxH.TabStop = false;
             // 
             // pictureBoxS
             // 
-            pictureBoxS.Location = new Point(735, 398);
-            pictureBoxS.Margin = new Padding(3, 2, 3, 2);
-            pictureBoxS.MaximumSize = new Size(105, 90);
-            pictureBoxS.MinimumSize = new Size(105, 90);
+            pictureBoxS.Location = new Point(840, 530);
+            pictureBoxS.MaximumSize = new Size(120, 120);
+            pictureBoxS.MinimumSize = new Size(120, 120);
             pictureBoxS.Name = "pictureBoxS";
-            pictureBoxS.Size = new Size(105, 90);
+            pictureBoxS.Size = new Size(120, 120);
             pictureBoxS.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBoxS.TabIndex = 16;
             pictureBoxS.TabStop = false;
             // 
             // pictureBoxI
             // 
-            pictureBoxI.Location = new Point(878, 398);
-            pictureBoxI.Margin = new Padding(3, 2, 3, 2);
-            pictureBoxI.MaximumSize = new Size(105, 90);
-            pictureBoxI.MinimumSize = new Size(105, 90);
+            pictureBoxI.Location = new Point(1004, 530);
+            pictureBoxI.MaximumSize = new Size(120, 120);
+            pictureBoxI.MinimumSize = new Size(120, 120);
             pictureBoxI.Name = "pictureBoxI";
-            pictureBoxI.Size = new Size(105, 90);
+            pictureBoxI.Size = new Size(120, 120);
             pictureBoxI.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBoxI.TabIndex = 17;
             pictureBoxI.TabStop = false;
             pictureBoxI.Click += pictureBox3_Click;
             // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(531, 72);
-            label1.Name = "label1";
-            label1.Size = new Size(76, 15);
-            label1.TabIndex = 18;
-            label1.Text = "Alterar brilho";
-            // 
             // FrmPrincipal
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1169, 521);
-            Controls.Add(label1);
+            ClientSize = new Size(1336, 695);
             Controls.Add(pictureBoxI);
             Controls.Add(pictureBoxS);
             Controls.Add(pictureBoxH);
@@ -278,6 +262,7 @@
             Controls.Add(button1);
             Controls.Add(btAbrirImg);
             Controls.Add(pictureBox1);
+            Margin = new Padding(3, 4, 3, 4);
             Name = "FrmPrincipal";
             Text = "Editor de Imagem";
             Load += FrmPrincipal_Load;
@@ -313,6 +298,5 @@
         private PictureBox pictureBoxH;
         private PictureBox pictureBoxS;
         private PictureBox pictureBoxI;
-        private Label label1;
     }
 }
