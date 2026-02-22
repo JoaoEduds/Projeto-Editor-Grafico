@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Drawing.Imaging;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace ExCG
 {
@@ -300,6 +302,145 @@ namespace ExCG
             }
             src.UnlockBits(srcData);
             dst.UnlockBits(dstData);
+        }
+
+        public static void RGB_HSI(int r, int g, int b,out double h, out double s,out double i)
+        {
+            h = s = i = 0;
+            int sum = r + g + b;
+            if (sum != 0)
+            {
+                double R = (double)r / sum;
+                double G = (double)g / sum;
+                double B = (double)b / sum;
+
+                double num = 0.5 * ((R - G) + (R - B));
+                double den = Math.Sqrt(Math.Pow(R - G, 2) + (R - B) * (G - B));
+
+                if (den != 0)
+                {
+                    h = Math.Acos(num / den);
+                    if (B > G)
+                    {
+                        h = 2 * Math.PI - h;
+                    }
+                    h = h * 180 / Math.PI;
+                }
+                else
+                {
+                    h = 1;
+                }
+
+                double min = Math.Min(R, Math.Min(G, B));
+                s = (1 - 3 * min) * 100;
+
+                i = (r + g + b) / 3;
+            }
+        }
+
+        public static void HSI_RGB(out int r, out int g, out int b, double h, double s, double i)
+        {
+            h = h * Math.PI / 180;
+            s = s / 100;
+            i = i / 255; 
+
+            double x = i * (1 - s);
+
+            double y, z, R, G, B;
+
+            double calc = 2 * Math.PI / 3;
+            double calc2 = 4 * Math.PI / 3;
+            if (h < calc)
+            {
+                double divisor = Math.Cos(Math.PI / 3 - h);
+                if (Math.Abs(divisor) < 0.0001)
+                    divisor = 0.0001;
+                y = i * (1 + (s * Math.Cos(h)) / divisor);
+                z = 3 * i - (x + y);
+                R = y;
+                G = z;
+                B = x;
+            }
+            else if(h < calc2)
+            {
+                h = h - calc;
+                double divisor = Math.Cos(Math.PI / 3 - h);
+                if (Math.Abs(divisor) < 0.0001)
+                    divisor = 0.0001;
+                y = i * (1 + (s * Math.Cos(h)) / divisor);
+                z = 3 * i - (x + y);
+                R = x;
+                G = y;
+                B = z;
+            }
+            else{
+                h = h - calc2;
+                double divisor = Math.Cos(Math.PI / 3 - h);
+                if (Math.Abs(divisor) < 0.0001)
+                    divisor = 0.0001;
+                y = i * (1 + (s * Math.Cos(h)) / divisor);
+                z = 3 * i - (x + y);
+                R = z;
+                G = x;
+                B = y;
+            }
+
+            R = Math.Max(0, Math.Min(1, R));
+            G = Math.Max(0, Math.Min(1, G));
+            B = Math.Max(0, Math.Min(1, B));
+
+            r = (int)(R * 255);
+            g = (int)(G * 255);
+            b = (int)(B * 255);
+        }
+
+        public static void matiz_Hue(Bitmap imgBitmapSrc, Bitmap imgBitmapDst, int V)
+        {
+            int width = imgBitmapSrc.Width;
+            int height = imgBitmapSrc.Height;
+            int pixelSize = 3;
+
+            BitmapData srcData = imgBitmapSrc.LockBits(
+                new Rectangle(0, 0, width, height),
+                ImageLockMode.ReadOnly,
+                PixelFormat.Format24bppRgb);
+
+            BitmapData dstData = imgBitmapDst.LockBits(
+                new Rectangle(0, 0, width, height),
+                ImageLockMode.WriteOnly,
+                PixelFormat.Format24bppRgb);
+
+            int padding = srcData.Stride - (width * pixelSize);
+
+            unsafe
+            {
+                byte* srcPtr = (byte*)srcData.Scan0;
+                byte* dstPtr = (byte*)dstData.Scan0;
+
+                for (int y = 0; y < height; y++)
+                {
+                    for (int x = 0; x < width; x++)
+                    {
+                        int b = *(srcPtr++);
+                        int g = *(srcPtr++);
+                        int r = *(srcPtr++);
+
+                        double h, s, i;
+                        RGB_HSI(r, g, b, out h, out s, out i);
+                        h = (h + V) % 360;
+                        if (h < 0) h += 360;
+                        HSI_RGB(out r, out g, out b, h, s, i);
+
+                        *(dstPtr++) = (byte)b;
+                        *(dstPtr++) = (byte)g;
+                        *(dstPtr++) = (byte)r;
+                    }
+                    srcPtr += padding;
+                    dstPtr += padding;
+                }
+            }
+            imgBitmapSrc.UnlockBits(srcData);
+            imgBitmapDst.UnlockBits(dstData);
         }
     }
 }

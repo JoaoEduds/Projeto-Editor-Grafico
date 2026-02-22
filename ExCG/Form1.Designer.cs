@@ -47,6 +47,9 @@
             pictureBoxS = new PictureBox();
             pictureBoxI = new PictureBox();
             label1 = new Label();
+            label2 = new Label();
+            button6 = new Button();
+            button7 = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxR).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxG).BeginInit();
@@ -127,7 +130,6 @@
             panelCor.Size = new Size(68, 61);
             panelCor.TabIndex = 7;
             panelCor.Visible = false;
-            panelCor.Paint += panelCor_Paint;
             // 
             // button2
             // 
@@ -255,11 +257,43 @@
             label1.TabIndex = 18;
             label1.Text = "Alterar brilho";
             // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(531, 150);
+            label2.Name = "label2";
+            label2.Size = new Size(74, 15);
+            label2.TabIndex = 19;
+            label2.Text = "Mudar Matiz";
+            // 
+            // button6
+            // 
+            button6.Location = new Point(530, 168);
+            button6.Name = "button6";
+            button6.Size = new Size(75, 23);
+            button6.TabIndex = 20;
+            button6.Text = "+10°";
+            button6.UseVisualStyleBackColor = true;
+            button6.Click += aumentar_Hue;
+            // 
+            // button7
+            // 
+            button7.Location = new Point(641, 168);
+            button7.Name = "button7";
+            button7.Size = new Size(75, 23);
+            button7.TabIndex = 21;
+            button7.Text = "-10°";
+            button7.UseVisualStyleBackColor = true;
+            button7.Click += diminuir_Hue;
+            // 
             // FrmPrincipal
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1169, 521);
+            Controls.Add(button7);
+            Controls.Add(button6);
+            Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(pictureBoxI);
             Controls.Add(pictureBoxS);
@@ -314,5 +348,8 @@
         private PictureBox pictureBoxS;
         private PictureBox pictureBoxI;
         private Label label1;
+        private Label label2;
+        private Button button6;
+        private Button button7;
     }
 }

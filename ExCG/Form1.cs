@@ -10,6 +10,7 @@ namespace ExCG
         private Bitmap imgBitmap;
         private Bitmap imagemOriginal;  // Guarda a imagem original
         private int nivelBrilho = 0;    // Contador de brilho
+        private int hueAtual=0;
 
         public FrmPrincipal()
         {
@@ -29,6 +30,7 @@ namespace ExCG
                 pictureBox1.Image = image;
                 pictureBox1.SizeMode = PictureBoxSizeMode.Normal;
                 nivelBrilho = 0; // Reseta o contador
+                hueAtual = 0;
             }
         }
 
@@ -65,7 +67,7 @@ namespace ExCG
             {
                 Bitmap imgBitmap = (Bitmap)pictureBox1.Image;
 
-                if (e.X >= 0 || e.Y >= 0 || e.X < imgBitmap.Width || e.Y < imgBitmap.Height)
+                if (e.X >= 0 && e.Y >= 0 && e.X < imgBitmap.Width && e.Y < imgBitmap.Height)
                 {
                     BitmapData bitmapDataSrc = imgBitmap.LockBits(
                     new Rectangle(0, 0, imgBitmap.Width, imgBitmap.Height),
@@ -88,13 +90,13 @@ namespace ExCG
                         int m = 255 - g;
                         int y = 255 - b;
 
-                        int h, s, i;
-
+                        double h, s, i;
+                        Filtros.RGB_HSI(r, g, b, out h, out s, out i);
 
                         panelCor.Visible = true;
                         panelCor.BackColor = Color.FromArgb(r, g, b);
                         panelCor.Location = new Point(e.X + 15, e.Y + 15);
-                        valorPixel.Text = $"R:{r} G:{g} B:{b}\nC:{c} M:{m} Y:{y}";
+                        valorPixel.Text = $"R:{r} G:{g} B:{b}\nC:{c} M:{m} Y:{y}\nH:{h:f3} S:{s:f3} I:{i}";
                     }
                     finally
                     {
@@ -104,33 +106,30 @@ namespace ExCG
             }
         }
 
-        private void panelCor_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
         private void aumentar_Brilho(object sender, EventArgs e)
         {
-            if (imagemOriginal == null)
+            if (imagemOriginal != null)
+            {
+                nivelBrilho += 20; // Aumenta o contador
+                aplicarBrilho(); // Aplica o brilho acumulado
+            }
+            else
             {
                 MessageBox.Show("Carregue uma imagem primeiro!");
-                return;
             }
-
-            nivelBrilho += 20; // Aumenta o contador
-            aplicarBrilho(); // Aplica o brilho acumulado
         }
 
         private void diminuir_Brilho(object sender, EventArgs e)
         {
-            if (imagemOriginal == null)
+            if (imagemOriginal != null)
+            {
+                nivelBrilho -= 20; // Diminui o contador
+                aplicarBrilho(); // Aplica o brilho acumulado
+            }
+            else
             {
                 MessageBox.Show("Carregue uma imagem primeiro!");
-                return;
             }
-
-            nivelBrilho -= 20; // Diminui o contador
-            aplicarBrilho(); // Aplica o brilho acumulado
         }
 
         private void aplicarBrilho()
@@ -212,6 +211,31 @@ namespace ExCG
         private void pictureBox3_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void aumentar_Hue(object sender, EventArgs e)
+        {
+            if (imagemOriginal != null)
+            {
+                Bitmap imgDest = new Bitmap(image);
+                imgBitmap = (Bitmap)image;
+                hueAtual = (hueAtual + 10) % 360;
+                Filtros.matiz_Hue(imgBitmap, imgDest, hueAtual);
+                pictureBox1.Image = imgDest;
+            }
+        }
+
+        private void diminuir_Hue(object sender, EventArgs e)
+        {
+            if (imagemOriginal != null)
+            {
+                Bitmap imgDest = new Bitmap(image);
+                imgBitmap = (Bitmap)image; 
+                hueAtual = (hueAtual - 10) % 360;
+                if (hueAtual < 0) hueAtual += 360;
+                Filtros.matiz_Hue(imgBitmap, imgDest, hueAtual);
+                pictureBox1.Image = imgDest;
+            }
         }
     }
 }
