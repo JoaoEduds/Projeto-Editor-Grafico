@@ -50,6 +50,9 @@
             label2 = new Label();
             button6 = new Button();
             button7 = new Button();
+            intervaloMin = new TextBox();
+            intervaloMax = new TextBox();
+            button8 = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxR).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxG).BeginInit();
@@ -133,7 +136,7 @@
             // 
             // button2
             // 
-            button2.Location = new Point(531, 89);
+            button2.Location = new Point(531, 84);
             button2.Margin = new Padding(3, 2, 3, 2);
             button2.Name = "button2";
             button2.Size = new Size(82, 22);
@@ -144,10 +147,10 @@
             // 
             // button3
             // 
-            button3.Location = new Point(636, 89);
+            button3.Location = new Point(636, 84);
             button3.Margin = new Padding(3, 2, 3, 2);
             button3.Name = "button3";
-            button3.Size = new Size(82, 22);
+            button3.Size = new Size(88, 22);
             button3.TabIndex = 9;
             button3.Text = "-";
             button3.UseVisualStyleBackColor = true;
@@ -155,7 +158,7 @@
             // 
             // button4
             // 
-            button4.Location = new Point(531, 115);
+            button4.Location = new Point(531, 110);
             button4.Margin = new Padding(3, 2, 3, 2);
             button4.Name = "button4";
             button4.Size = new Size(82, 22);
@@ -166,10 +169,10 @@
             // 
             // button5
             // 
-            button5.Location = new Point(637, 115);
+            button5.Location = new Point(637, 110);
             button5.Margin = new Padding(3, 2, 3, 2);
             button5.Name = "button5";
-            button5.Size = new Size(82, 22);
+            button5.Size = new Size(87, 22);
             button5.TabIndex = 11;
             button5.Text = "HSI";
             button5.UseVisualStyleBackColor = true;
@@ -251,7 +254,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(531, 72);
+            label1.Location = new Point(531, 67);
             label1.Name = "label1";
             label1.Size = new Size(76, 15);
             label1.TabIndex = 18;
@@ -260,7 +263,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(531, 150);
+            label2.Location = new Point(531, 134);
             label2.Name = "label2";
             label2.Size = new Size(74, 15);
             label2.TabIndex = 19;
@@ -268,9 +271,9 @@
             // 
             // button6
             // 
-            button6.Location = new Point(530, 168);
+            button6.Location = new Point(530, 152);
             button6.Name = "button6";
-            button6.Size = new Size(75, 23);
+            button6.Size = new Size(83, 23);
             button6.TabIndex = 20;
             button6.Text = "+10°";
             button6.UseVisualStyleBackColor = true;
@@ -278,19 +281,46 @@
             // 
             // button7
             // 
-            button7.Location = new Point(641, 168);
+            button7.Location = new Point(636, 152);
             button7.Name = "button7";
-            button7.Size = new Size(75, 23);
+            button7.Size = new Size(88, 23);
             button7.TabIndex = 21;
             button7.Text = "-10°";
             button7.UseVisualStyleBackColor = true;
             button7.Click += diminuir_Hue;
+            // 
+            // intervaloMin
+            // 
+            intervaloMin.Location = new Point(529, 181);
+            intervaloMin.Name = "intervaloMin";
+            intervaloMin.Size = new Size(84, 23);
+            intervaloMin.TabIndex = 22;
+            // 
+            // intervaloMax
+            // 
+            intervaloMax.Location = new Point(637, 181);
+            intervaloMax.Name = "intervaloMax";
+            intervaloMax.Size = new Size(87, 23);
+            intervaloMax.TabIndex = 23;
+            // 
+            // button8
+            // 
+            button8.Location = new Point(567, 210);
+            button8.Name = "button8";
+            button8.Size = new Size(127, 23);
+            button8.TabIndex = 24;
+            button8.Text = "Aplicar Segmentação";
+            button8.UseVisualStyleBackColor = true;
+            button8.Click += Segmentar_Click;
             // 
             // FrmPrincipal
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1169, 521);
+            Controls.Add(button8);
+            Controls.Add(intervaloMax);
+            Controls.Add(intervaloMin);
             Controls.Add(button7);
             Controls.Add(button6);
             Controls.Add(label2);
@@ -351,5 +381,8 @@
         private Label label2;
         private Button button6;
         private Button button7;
+        private TextBox intervaloMin;
+        private TextBox intervaloMax;
+        private Button button8;
     }
 }

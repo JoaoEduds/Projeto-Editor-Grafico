@@ -10,7 +10,7 @@ namespace ExCG
         private Bitmap imgBitmap;
         private Bitmap imagemOriginal;  // Guarda a imagem original
         private int nivelBrilho = 0;    // Contador de brilho
-        private int hueAtual=0;
+        private int hueAtual = 0;
 
         public FrmPrincipal()
         {
@@ -230,12 +230,22 @@ namespace ExCG
             if (imagemOriginal != null)
             {
                 Bitmap imgDest = new Bitmap(image);
-                imgBitmap = (Bitmap)image; 
+                imgBitmap = (Bitmap)image;
                 hueAtual = (hueAtual - 10) % 360;
                 if (hueAtual < 0) hueAtual += 360;
                 Filtros.matiz_Hue(imgBitmap, imgDest, hueAtual);
                 pictureBox1.Image = imgDest;
             }
+        }
+
+        private void Segmentar_Click(object sender, EventArgs e)
+        {
+            Bitmap imgDest = new Bitmap(image);
+            imgBitmap = (Bitmap)image;
+            int min = int.Parse(intervaloMin.Text);
+            int max = int.Parse(intervaloMax.Text);
+            Filtros.segmentarHue(imgBitmap, imgDest, min, max);
+            pictureBox1.Image = imgDest;
         }
     }
 }

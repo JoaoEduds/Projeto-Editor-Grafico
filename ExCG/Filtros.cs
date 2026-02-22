@@ -442,5 +442,72 @@ namespace ExCG
             imgBitmapSrc.UnlockBits(srcData);
             imgBitmapDst.UnlockBits(dstData);
         }
+
+        public static void segmentarHue(Bitmap imgBitmapSrc, Bitmap imgBitmapDst, int min, int max)
+        {
+            int width = imgBitmapSrc.Width;
+            int height = imgBitmapSrc.Height;
+            int pixelSize = 3;
+
+            BitmapData srcData = imgBitmapSrc.LockBits(
+                new Rectangle(0, 0, width, height),
+                ImageLockMode.ReadOnly,
+                PixelFormat.Format24bppRgb);
+
+            BitmapData dstData = imgBitmapDst.LockBits(
+                new Rectangle(0, 0, width, height),
+                ImageLockMode.WriteOnly,
+                PixelFormat.Format24bppRgb);
+
+            int padding = srcData.Stride - (width * pixelSize);
+
+            unsafe
+            {
+                byte* srcPtr = (byte*)srcData.Scan0;
+                byte* dstPtr = (byte*)dstData.Scan0;
+
+                for (int y = 0; y < height; y++)
+                {
+                    for (int x = 0; x < width; x++)
+                    {
+                        int b = *(srcPtr++);
+                        int g = *(srcPtr++);
+                        int r = *(srcPtr++);
+
+                        double h, s, i;
+                        RGB_HSI(r, g, b, out h, out s, out i);
+
+                        bool inter; 
+
+                        if (min <= max)
+                        {
+                            inter = (h >= min && h <= max);
+                        }
+                        else
+                        {
+                            inter = (h >= min || h <= max);
+                        }
+
+                        if (inter)
+                        {
+                            *(dstPtr++) = (byte)b;
+                            *(dstPtr++) = (byte)g;
+                            *(dstPtr++) = (byte)r;
+                        }
+                        else
+                        {
+                            Int32 gs = (Int32)(r * 0.2990 + g * 0.5870 + b * 0.1140);
+                            *(dstPtr++) = (byte)gs;
+                            *(dstPtr++) = (byte)gs;
+                            *(dstPtr++) = (byte)gs;
+                        }
+                    }
+                    srcPtr += padding;
+                    dstPtr += padding;
+                }
+            }
+            imgBitmapSrc.UnlockBits(srcData);
+            imgBitmapDst.UnlockBits(dstData);
+        }
     }
 }
